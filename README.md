@@ -44,7 +44,7 @@ TemplateTwoWayBinding('hello',
   }
 );
 ```
-Or in [TemplateController](https://github.com/meteor-space/template-controller) (use .state):
+Or with [TemplateController](https://github.com/meteor-space/template-controller) (use .state):
 
 ```javascript
 TemplateTwoWayBinding('hello',

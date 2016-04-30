@@ -92,62 +92,57 @@ Template.body.events({
   }
 });
 
-TemplateTwoWayBinding.attach = function(templateName) {
-  // Template reference
-  var template = Template[templateName];
-  // Add rendered callback
-  template.onRendered(function() {
-    var t = this;
-    // Loop through all variables we want to bind
-    var elements = t.$('[value-bind]:not([bound-id])');
-    // If our bound Session variable changes, update the corresponding element in the DOM
-    elements.each(function() {
-      var $element = $(this);
-      // Set one time bound-id
-      $element.attr('bound-id', ++boundId);
-      var variableArray = $element.attr('value-bind').split('|');
-      var variable = variableArray[0];
-      var exec = variableArray[1];
-      var boundEventHandler;
-      if (exec && ['throttle', 'debounce'].indexOf(exec.slice(0, 8)) != -1) {
-        var execArray = exec.split(':');
-        var wait = parseInt(execArray[1], 10) || 200;
-        exec = execArray[0];
-        boundEventHandler = _[exec](eventHandler, wait);
-      } else {
-        boundEventHandler = eventHandler;
+TemplateTwoWayBinding.rendered = function() {
+  var t = this;
+  // Loop through all variables we want to bind
+  var elements = t.$('[value-bind]:not([bound-id])');
+  // If our bound Session variable changes, update the corresponding element in the DOM
+  elements.each(function() {
+    var $element = $(this);
+    // Set one time bound-id
+    $element.attr('bound-id', ++boundId);
+    var variableArray = $element.attr('value-bind').split('|');
+    var variable = variableArray[0];
+    var exec = variableArray[1];
+    var boundEventHandler;
+    if (exec && ['throttle', 'debounce'].indexOf(exec.slice(0, 8)) != -1) {
+      var execArray = exec.split(':');
+      var wait = parseInt(execArray[1], 10) || 200;
+      exec = execArray[0];
+      boundEventHandler = _[exec](eventHandler, wait);
+    } else {
+      boundEventHandler = eventHandler;
+    }
+    // Set events and context by bound-id
+    boundMap[boundId] = { f: boundEventHandler, t: t };
+    t.autorun(function() {
+      var value = TemplateTwoWayBinding.getter.call(t, variable);
+      var type = $element.prop('type');
+      // Format date object to match input[type='date'] format
+      if (value instanceof Date) {
+        value = (new Date).toDateInputValue();
       }
-      // Set events and context by bound-id
-      boundMap[boundId] = { f: boundEventHandler, t: t };
-      t.autorun(function() {
-        var value = TemplateTwoWayBinding.getter.call(t, variable);
-        var type = $element.prop('type');
-        // Format date object to match input[type='date'] format
-        if (value instanceof Date) {
-          value = (new Date).toDateInputValue();
-        }
-        if (type === 'checkbox' || type === 'radio') {
-          // Find all matching DOM elements
-          var selector = '[value-bind=\'' + variable + '\']';
-          var elements = t.$(selector);
-          if (value !== undefined) {
-            // Ensure we have an array to loop over
-            if (!_.isArray(value)) {
-              value = new Array(value);
-            }
-            // Add checked property to all truthy values
-            elements.each(function () {
-              $element.prop('checked', false);
-            });
-            value.forEach(function (name) {
-              t.$(selector + '[value=\'' + name + '\']').prop('checked', true);
-            });
+      if (type === 'checkbox' || type === 'radio') {
+        // Find all matching DOM elements
+        var selector = '[value-bind=\'' + variable + '\']';
+        var elements = t.$(selector);
+        if (value !== undefined) {
+          // Ensure we have an array to loop over
+          if (!_.isArray(value)) {
+            value = new Array(value);
           }
-        } else {
-          // In this case we copy the Session variable to the value property
-          $element.val(value);
+          // Add checked property to all truthy values
+          elements.each(function () {
+            $element.prop('checked', false);
+          });
+          value.forEach(function (name) {
+            t.$(selector + '[value=\'' + name + '\']').prop('checked', true);
+          });
         }
-      });
+      } else {
+        // In this case we copy the Session variable to the value property
+        $element.val(value);
+      }
     });
   });
 };

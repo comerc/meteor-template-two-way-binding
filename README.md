@@ -34,7 +34,11 @@ by the Session variable and vice versa.
 ```
 
 ```javascript
-TemplateTwoWayBinding.attach('hello');
+Template.hello.rendered = TemplateTwoWayBinding.rendered;
+// or
+// Template.hello.onRendered(function() {
+//   TemplateTwoWayBinding.rendered.call(this);
+// });
 ```
 Or with [TemplateController](https://github.com/meteor-space/template-controller) (use .state):
 
@@ -49,9 +53,12 @@ TemplateTwoWayBinding.setter = function(variable, value) {
   this.state[variable](value);
 };
 
-TemplateTwoWayBinding.attach('hello');
-
 TemplateController('hello', {
+  onRendered: TemplateTwoWayBinding.rendered,
+  // or
+  // onRendered: function() {
+  //   TemplateTwoWayBinding.rendered.call(this);
+  // },
   state: {
     exampleVariable1: 'test'
   }

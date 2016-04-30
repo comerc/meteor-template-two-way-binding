@@ -34,28 +34,28 @@ by the Session variable and vice versa.
 ```
 
 ```javascript
-TemplateTwoWayBinding('hello',
-  function(variable) {
-    return Session.get(variable);
-  },
-  function(variable, value) {
-    // best place for external data validation (SimpleSchema, Astronomy etc.)
-    Session.set(variable, value);
-  }
-);
+TemplateTwoWayBinding.attach('hello');
 ```
-Or in [TemplateController](https://github.com/meteor-space/template-controller) (use .state):
+Or with [TemplateController](https://github.com/meteor-space/template-controller) (use .state):
 
 ```javascript
-TemplateTwoWayBinding('hello',
-  function(variable) {
-    return this.state[variable]();
-  },
-  function(variable, value) {
-    // best place for external data validation (SimpleSchema, Astronomy etc.)
-    this.state[variable](value);
+TemplateTwoWayBinding.getter = function(variable) {
+  // this - Template.instance()
+  return this.state[variable]();
+};
+
+TemplateTwoWayBinding.setter = function(variable, value) {
+  // best place for external data validation (SimpleSchema, Astronomy etc.)
+  this.state[variable](value);
+};
+
+TemplateTwoWayBinding.attach('hello');
+
+TemplateController('hello', {
+  state: {
+    exampleVariable: 'test',
   }
-);
+});
 ```
 
 ## Supported elements
@@ -126,6 +126,36 @@ The value stored in the Session variable is the text as Number.
 ```
 
 The value stored in the Session variable is the color as hex triplet String (e.g. '#FFFFFF').
+
+## Throttle
+
+By default throttle will only allow updates every 200ms. You can customize the rate of course. Here are a few examples.
+
+Updating a property, at most, every 200ms
+```HTML
+<input type="text" value-bind="query|throttle">
+```
+
+Updating a property, at most, every 850ms
+```HTML
+<input type="text" value-bind="query|throttle:850">
+```
+
+## Debounce
+
+Debounce prevents the binding from being updated until a specified interval has passed without any changes.
+
+A common use case is a search input that triggers searching automatically. You wouldn't want to make a search API on every change (every keystroke). It's more efficient to wait until the user has paused typing to invoke the search logic.
+
+Update after typing stopped for 200ms
+```HTML
+<input type="text" value-bind="query|debounce">
+```
+
+Update after typing stopped for 850ms
+```HTML
+<input type="text" value-bind="query|debounce:850">
+```
 
 ## License
 The code is licensed under the MIT License (see LICENSE file).

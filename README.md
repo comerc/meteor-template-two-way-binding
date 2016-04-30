@@ -29,7 +29,7 @@ by the Session variable and vice versa.
 
 ```HTML
 <template name='hello'>
-  <input type='text' value-bind='exampleVariable'/>
+  <input type='text' value-bind='exampleVariable1'/>
 </template>
 ```
 
@@ -53,7 +53,7 @@ TemplateTwoWayBinding.attach('hello');
 
 TemplateController('hello', {
   state: {
-    exampleVariable: 'test'
+    exampleVariable1: 'test'
   }
 });
 ```

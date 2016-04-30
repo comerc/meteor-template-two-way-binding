@@ -170,9 +170,10 @@ Update after typing stopped for 850ms
 <input type="text" value-bind="query|debounce:850">
 ```
 
-##TODO
+## TODO
 
-- support onChange for <select>
+- modelMap & validation example
+- support onChange for `<select>`
 - w/o jQuery
 
 ## License

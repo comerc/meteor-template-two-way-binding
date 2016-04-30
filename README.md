@@ -24,7 +24,7 @@ Add value-bind='foo' to an input element to bind it to a Session variable named 
 
 ## Example
 
-Binds the Session variable 'exampleVariable' to the input element in the DOM. Any changes to the text field will be reflected
+Binds the Session variable 'exampleVariable1' to the input element in the DOM. Any changes to the text field will be reflected
 by the Session variable and vice versa.
 
 ```HTML

@@ -53,7 +53,7 @@ TemplateTwoWayBinding.attach('hello');
 
 TemplateController('hello', {
   state: {
-    exampleVariable: 'test',
+    exampleVariable: 'test'
   }
 });
 ```

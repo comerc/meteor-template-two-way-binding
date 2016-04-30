@@ -108,17 +108,17 @@ TemplateTwoWayBinding.attach = function(templateName) {
       var variableArray = $element.attr('value-bind').split('|');
       var variable = variableArray[0];
       var exec = variableArray[1];
-      var wrappedEventHandler;
+      var boundEventHandler;
       if (exec && ['throttle', 'debounce'].indexOf(exec.slice(0, 8)) != -1) {
-        execArray = exec.split(':');
-        wait = parseInt(execArray[1], 10) || 200;
+        var execArray = exec.split(':');
+        var wait = parseInt(execArray[1], 10) || 200;
         exec = execArray[0];
-        wrappedEventHandler = _[exec](eventHandler, wait);
+        boundEventHandler = _[exec](eventHandler, wait);
       } else {
-        wrappedEventHandler = eventHandler;
+        boundEventHandler = eventHandler;
       }
       // Set events and context by bound-id
-      boundMap[boundId] = { f: wrappedEventHandler, t: t };
+      boundMap[boundId] = { f: boundEventHandler, t: t };
       t.autorun(function() {
         var value = TemplateTwoWayBinding.getter.call(t, variable);
         var type = $element.prop('type');

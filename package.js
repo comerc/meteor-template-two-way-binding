@@ -1,6 +1,6 @@
 Package.describe({
   name: 'comerc:template-two-way-binding',
-  version: '1.3.1',
+  version: '1.3.2',
   summary: 'Two-Way Binding for Blaze templates',
   git: 'https://github.com/comerc/meteor-template-two-way-binding',
   documentation: 'README.md'
@@ -11,7 +11,8 @@ Package.onUse(function (api) {
   api.versionsFrom('1.2.1');
   api.use([
     'templating',
-    'blaze-html-templates'
+    'blaze-html-templates',
+    'aldeed:template-extension@4.0.0',
   ]);
   api.addFiles('template-two-way-binding.js', 'client');
   api.export('TemplateTwoWayBinding');

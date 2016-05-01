@@ -8,7 +8,7 @@ Key features:
 - customizing (reactive) data-store: Session variables, [TemplateController](https://github.com/meteor-space/template-controller) state etc.
 - extensible for external data validation: [SimpleSchema](https://github.com/aldeed/meteor-simple-schema), [Astronomy](https://github.com/jagi/meteor-astronomy) etc.
 
-Inspired: [Aurelia](http://aurelia.io/), [Vue](https://vuejs.org/guide/#Two-way-Binding), [ReactLink](https://facebook.github.io/react/docs/two-way-binding-helpers.html), [manuel:viewmodel](https://github.com/ManuelDeLeon/viewmodel) and [nov1n:reactive-bind](https://github.com/nov1n/reactive-bind).
+Inspired by: [Aurelia](http://aurelia.io/), [Vue](https://vuejs.org/guide/#Two-way-Binding), [ReactLink](https://facebook.github.io/react/docs/two-way-binding-helpers.html), [manuel:viewmodel](https://github.com/ManuelDeLeon/viewmodel) and [nov1n:reactive-bind](https://github.com/nov1n/reactive-bind).
 
 
 ## Installation
@@ -21,6 +21,10 @@ $ meteor add comerc:template-two-way-binding
 
 ## Usage
 Add value-bind="foo" to an input element to bind it to a Session variable named "foo".
+
+## Demo
+
+[Demo here!](https://github.com/comerc/meteor-template-controller-demo)
 
 ## Example
 
@@ -56,7 +60,7 @@ TemplateTwoWayBinding.setter = function(variable, value) {
 TemplateController('hello', {
   onRendered: TemplateTwoWayBinding.rendered,
   // or
-  // onRendered: function() {
+  // onRendered() {
   //   TemplateTwoWayBinding.rendered.call(this);
   // },
   state: {
@@ -172,9 +176,11 @@ Update after typing stopped for 850ms
 
 ## TODO
 
-- modelMap & validation example
-- support onChange for `<select>`
-- w/o jQuery
+- [x] throttle & debounce  
+- [x] [contenteditable]
+- [x] modelMap & validation example
+- [ ] support onChange for `<select>`
+- [ ] w/o jQuery
 
 ## License
 The code is licensed under the MIT License (see LICENSE file).

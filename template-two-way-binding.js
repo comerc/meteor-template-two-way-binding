@@ -12,6 +12,16 @@ Date.prototype.toDateInputValue = (function() {
 var boundCount = 0;
 var boundMap = {};
 
+// ???
+Template.onDestroyed(function() {
+  var t = this;
+  _.each(boundMap, function(boundEventHandler) {
+    if (boundEventHandler.t === t) {
+      delete(boundEventHandler.t);
+    }
+  });
+});
+
 TemplateTwoWayBinding = {};
 
 TemplateTwoWayBinding.getter = function(variable) {

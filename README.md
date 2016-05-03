@@ -181,6 +181,7 @@ Update after typing stopped for 850ms
 - [x] modelMap & validation example
 - [ ] support onChange for `<select>`
 - [ ] w/o jQuery
+- [ ] custom binding
 
 ## License
 The code is licensed under the MIT License (see LICENSE file).

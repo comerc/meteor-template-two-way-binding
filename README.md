@@ -1,11 +1,11 @@
 comerc:template-two-way-binding
 ===============================
 
-Two-Way Binding for Blaze templates. Simple!
+Two-Way Binding for Blaze templates. Simple! It's used by the [Template2](https://github.com/comerc/meteor-template2) package, but you can use it by itself, too.
 
 Key features:
 - value-bind declared in HTML-source - important for debug of alien code
-- customizing (reactive) data-store: Session variables, [TemplateController](https://github.com/meteor-space/template-controller) state etc.
+- customizing (reactive) data-store: [Session variables](https://github.com/comerc/meteor-template-two-way-binding/blob/master/template-two-way-binding.js#L3-L13), [TemplateController state](https://github.com/comerc/meteor-template-controller-demo/blob/master/client/main.coffee#L8-L18) etc.
 - extensible for external data validation: [SimpleSchema](https://github.com/aldeed/meteor-simple-schema), [Astronomy](https://github.com/jagi/meteor-astronomy) etc.
 
 Inspired by: [Aurelia](http://aurelia.io/), [Vue](https://vuejs.org/guide/#Two-way-Binding), [ReactLink](https://facebook.github.io/react/docs/two-way-binding-helpers.html), [manuel:viewmodel](https://github.com/ManuelDeLeon/viewmodel) and [nov1n:reactive-bind](https://github.com/nov1n/reactive-bind).
@@ -24,7 +24,7 @@ Add value-bind="foo" to an input element to bind it to a Session variable named 
 
 ## Demo
 
-[Demo here!](https://github.com/comerc/meteor-template-controller-demo)
+[Demo here!](https://github.com/comerc/meteor-template2)
 
 ## Example
 
@@ -44,7 +44,7 @@ Template.hello.rendered = TemplateTwoWayBinding.rendered;
 //   TemplateTwoWayBinding.rendered(this);
 // });
 ```
-Or with [space:template-controller](https://github.com/meteor-space/template-controller) via `this.state`:
+<!--Or with [space:template-controller](https://github.com/meteor-space/template-controller) via `this.state`:
 
 ```javascript
 TemplateTwoWayBinding.getter = function(variable) {
@@ -67,7 +67,7 @@ TemplateController('hello', {
     exampleVariable1: 'test'
   }
 });
-```
+```-->
 
 ## Supported elements
 ### Text

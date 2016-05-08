@@ -1,3 +1,23 @@
+TemplateTwoWayBinding = {};
+
+// for custom override
+TemplateTwoWayBinding.getter = function(variable) {
+  // this - templateInstance context
+  return Session.get(variable);
+};
+
+// for custom override
+TemplateTwoWayBinding.setter = function(variable, value) {
+  // this - templateInstance context
+  Session.set(variable, value);
+};
+
+// for custom override
+// TemplateTwoWayBinding.operator = function(variable, operator, params) {
+//   // this - templateInstance context
+//   // for custom code
+// };
+
 /**
  * Coverts a Date object to a input[type='date'] value
  * @type {Function}
@@ -10,23 +30,6 @@ Date.prototype.toDateInputValue = (function() {
 });
 
 var boundCount = 0;
-
-TemplateTwoWayBinding = {};
-
-TemplateTwoWayBinding.getter = function(variable) {
-  // this - templateInstance context
-  return Session.get(variable);
-};
-
-TemplateTwoWayBinding.setter = function(variable, value) {
-  // this - templateInstance context
-  Session.set(variable, value);
-};
-
-// TemplateTwoWayBinding.operator = function(variable, operator, params) {
-//   // this - templateInstance context
-//   // for custom code
-// };
 
 TemplateTwoWayBinding.rendered = function(templateInstance) {
   // If old school: Template.hello.rendered = TemplateTwoWayBinding.rendered

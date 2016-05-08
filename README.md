@@ -41,7 +41,7 @@ by the Session variable and vice versa.
 Template.hello.rendered = TemplateTwoWayBinding.rendered;
 // or
 // Template.hello.onRendered(function() {
-//   TemplateTwoWayBinding.rendered.call(this);
+//   TemplateTwoWayBinding.rendered(this);
 // });
 ```
 Or with [space:template-controller](https://github.com/meteor-space/template-controller) via `this.state`:
@@ -61,7 +61,7 @@ TemplateController('hello', {
   onRendered: TemplateTwoWayBinding.rendered,
   // or
   // onRendered() {
-  //   TemplateTwoWayBinding.rendered.call(this);
+  //   TemplateTwoWayBinding.rendered(this);
   // },
   state: {
     exampleVariable1: 'test'
@@ -148,14 +148,16 @@ XXX tested with [yabwe/medium-editor](https://github.com/yabwe/medium-editor)
 
 By default throttle will only allow updates every 200ms. You can customize the rate of course. Here are a few examples.
 
+By default, throttle will execute the function as soon as you call it for the first time, and, if you call it again any number of times during the wait period, as soon as that period is over. If you'd like to disable the leading-edge call, pass "noLeading", and if you'd like to disable the execution on the trailing-edge, pass "noTrailing".
+
 Updating a property, at most, every 200ms
 ```HTML
-<input type="text" value-bind="query|throttle">
+<input type="text" value-bind="variable|throttle">
 ```
 
-Updating a property, at most, every 850ms
+Updating a property, at most, every 850ms (and noLeading, and noTrailing)
 ```HTML
-<input type="text" value-bind="query|throttle:850">
+<input type="text" value-bind="variable|throttle:850:noLeading:noTrailing">
 ```
 
 ## Debounce
@@ -164,24 +166,31 @@ Debounce prevents the binding from being updated until a specified interval has 
 
 A common use case is a search input that triggers searching automatically. You wouldn't want to make a search API on every change (every keystroke). It's more efficient to wait until the user has paused typing to invoke the search logic.
 
+Pass param "immediate" to cause debounce to trigger the function on the leading instead of the trailing edge of the wait interval. Useful in circumstances like preventing accidental double-clicks on a "submit" button from firing a second time.
+
 Update after typing stopped for 200ms
 ```HTML
-<input type="text" value-bind="query|debounce">
+<input type="text" value-bind="variable|debounce">
 ```
 
-Update after typing stopped for 850ms
+Update after typing stopped for 850ms (and immediate)
 ```HTML
-<input type="text" value-bind="query|debounce:850">
+<input type="text" value-bind="variable|debounce:850:immediate">
 ```
 
 ## TODO
 
 - [x] throttle & debounce  
 - [x] [contenteditable]
-- [x] modelMap & validation example
+- [x] modelMap & validation examples: [one](https://github.com/comerc/meteor-template-controller-demo), [two]()
+- [x] remove dependencies of Template.body.events & aldeed:template-extension
+- [x] custom operator
+- [x] throttle:500:notLeading:notTrailing
+- [x] debounce:500:immediate
 - [ ] support onChange for `<select>`
 - [ ] w/o jQuery
 - [ ] custom binding
+
 
 ## License
 The code is licensed under the MIT License (see LICENSE file).

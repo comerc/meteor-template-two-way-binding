@@ -161,10 +161,6 @@ TemplateTwoWayBinding.rendered = function(templateInstance) {
         $element.html(value);
       } else {
         var type = $element.prop('type');
-        // Format date object to match input[type='date'] format
-        if (value instanceof Date) {
-          value = (new Date).toDateInputValue();
-        }
         if (type === 'checkbox' || type === 'radio') {
           // Find all matching DOM elements
           var selector = '[value-bind=\'' + variable + '\']';
@@ -183,6 +179,10 @@ TemplateTwoWayBinding.rendered = function(templateInstance) {
             });
           }
         } else {
+          // Format date object to match input[type='date'] format
+          if (type === 'date' && value instanceof Date) {
+            value = (new Date).toDateInputValue();
+          }
           // In this case we copy the Session variable to the value property
           $element.val(value);
         }

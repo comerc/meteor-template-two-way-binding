@@ -182,15 +182,13 @@ Update after typing stopped for 850ms (and immediate)
 
 - [x] throttle & debounce  
 - [x] [contenteditable]
-- [x] modelMap & validation examples: [one](https://github.com/comerc/meteor-template-controller-demo), [two]()
+- [x] modelMap & validation examples: [one](https://github.com/comerc/meteor-template-controller-demo), [two](https://github.com/comerc/meteor-template2)
 - [x] remove dependencies of Template.body.events & aldeed:template-extension
-- [x] custom operator
+- [x] custom operator - removed
 - [x] throttle:500:notLeading:notTrailing
 - [x] debounce:500:immediate
-- [ ] support onChange for `<select>`
+- [ ] custom binding events via "|on:change" ("change" as example for `<select>`)
 - [ ] w/o jQuery
-- [ ] custom binding
-
 
 ## License
 The code is licensed under the MIT License (see LICENSE file).

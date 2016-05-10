@@ -187,7 +187,7 @@ Update after typing stopped for 850ms (and immediate)
 - [x] custom operator - removed
 - [x] throttle:500:notLeading:notTrailing
 - [x] debounce:500:immediate
-- [ ] custom binding events via "|on:change" ("change" as example for `<select>`)
+- [ ] custom binding events via "|on:change" ("change" as [example](https://github.com/ManuelDeLeon/phonebook/blob/master/client/body/main/contacts/editContact/editContact.js#L13) for `<select>`)
 - [ ] w/o jQuery
 - [ ] How to implement external wrapping of events (like throttle & debounce)? I want to give up the pseudo coding, may be.
 

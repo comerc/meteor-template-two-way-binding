@@ -189,6 +189,7 @@ Update after typing stopped for 850ms (and immediate)
 - [x] debounce:500:immediate
 - [ ] custom binding events via "|on:change" ("change" as example for `<select>`)
 - [ ] w/o jQuery
+- [ ] How to implement external wrapping of events (like throttle & debounce)? I want to give up the pseudo coding, may be.
 
 ## License
 The code is licensed under the MIT License (see LICENSE file).

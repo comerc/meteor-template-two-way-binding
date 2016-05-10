@@ -40,9 +40,9 @@ by the Session variable and vice versa.
 ```javascript
 Template.hello.rendered = TemplateTwoWayBinding.rendered;
 // or
-// Template.hello.onRendered(function() {
-//   TemplateTwoWayBinding.rendered(this);
-// });
+Template.hello.onRendered(function() {
+  TemplateTwoWayBinding.rendered(this);
+});
 ```
 <!--Or with [space:template-controller](https://github.com/meteor-space/template-controller) via `this.state`:
 

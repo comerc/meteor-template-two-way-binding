@@ -51,7 +51,7 @@ TemplateTwoWayBinding.rendered = function(templateInstance) {
       switch (type) {
         case 'checkbox':
           var checked = $element.is(':checked');
-          var prevValue = getter.call(t, variable);
+          var prevValue = TemplateTwoWayBinding.getter.call(t, variable);
           if (prevValue) {
             // Create an array to generalize processing
             if(!_.isArray(prevValue)) {
@@ -146,11 +146,23 @@ TemplateTwoWayBinding.rendered = function(templateInstance) {
           break;
         // default:
         //   TemplateTwoWayBinding.operator.call(t, variable, operator, operatorArray);
-        //   break;
       }
     });
-    // Drag event for input[type='range'] IE support
-    $element.on('input drag [bound-id=' + boundId + ']', boundEventHandler);
+    var type = $element.prop('type');
+    var events;
+    switch (type) {
+      case 'checkbox':
+      case 'radio':
+        events = 'change';
+        break;
+      case 'range':
+        // Drag event for input[type='range'] IE support
+        events = 'input drag';
+        break;
+      default:
+        events = 'input';
+    }
+    $element.on(events + ' [bound-id=' + boundId + ']', boundEventHandler);
     t.autorun(function() {
       var value = TemplateTwoWayBinding.getter.call(t, variable, $element);
       if ($element.attr('is-setter')) {
@@ -162,21 +174,12 @@ TemplateTwoWayBinding.rendered = function(templateInstance) {
       } else {
         var type = $element.prop('type');
         if (type === 'checkbox' || type === 'radio') {
-          // Find all matching DOM elements
-          var selector = '[value-bind=\'' + variable + '\']';
-          var elements = t.$(selector);
-          if (value !== undefined) {
-            // Ensure we have an array to loop over
-            if (!_.isArray(value)) {
-              value = new Array(value);
-            }
-            // Add checked property to all truthy values
-            elements.each(function () {
-              $element.prop('checked', false);
-            });
-            value.forEach(function (name) {
-              t.$(selector + '[value=\'' + name + '\']').prop('checked', true);
-            });
+          if (!_.isArray(value)) {
+            value = new Array(value);
+          }
+          var isValue = value.indexOf($element.val()) > -1;
+          if (isValue != $element.prop('checked')) {
+            $element.trigger('click');
           }
         } else {
           // Format date object to match input[type='date'] format

@@ -1,6 +1,6 @@
 Package.describe({
   name: 'comerc:template-two-way-binding',
-  version: '1.4.1',
+  version: '1.4.3',
   summary: 'Two-Way Binding for Blaze templates',
   git: 'https://github.com/comerc/meteor-template-two-way-binding',
   documentation: 'README.md'

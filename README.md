@@ -184,7 +184,7 @@ Update after typing stopped for 850ms (and immediate)
 - [x] [contenteditable]
 - [x] modelMap & validation examples: [one](https://github.com/comerc/meteor-template-controller-demo), [two](https://github.com/comerc/meteor-template2)
 - [x] remove dependencies of Template.body.events & aldeed:template-extension
-- [x] custom operator - removed
+- [x] ~~custom operator~~
 - [x] throttle:500:notLeading:notTrailing
 - [x] debounce:500:immediate
 - [ ] custom binding events via "|on:change" ("change" as [example](https://github.com/ManuelDeLeon/phonebook/blob/master/client/body/main/contacts/editContact/editContact.js#L13) for `<select>`)

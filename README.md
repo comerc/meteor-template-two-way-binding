@@ -24,7 +24,7 @@ Add value-bind="foo" to an input element to bind it to a Session variable named 
 
 ## Demo
 
-[Demo here!](https://github.com/comerc/meteor-template2)
+[Demo here!](https://github.com/comerc/meteor-template2#how-to-run-demo)
 
 ## Example
 

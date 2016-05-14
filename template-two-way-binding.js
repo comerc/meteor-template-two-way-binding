@@ -13,7 +13,7 @@ TemplateTwoWayBinding.setter = function(variable, value) {
 };
 
 // for custom override
-// TemplateTwoWayBinding.operator = function(variable, operator, params) {
+// TemplateTwoWayBinding.decorator = function(variable, decorator, params) {
 //   // this - templateInstance context
 //   // for custom code
 // };
@@ -39,7 +39,7 @@ TemplateTwoWayBinding.rendered = function(templateInstance) {
   var t = templateInstance;
   var eventHandler = function() {
     var $element = $(this);
-    var variableArray = $element.attr('value-bind').split('|');
+    var variableArray = $element.attr('value-bind').split('@');
     var variable = variableArray[0];
     var value;
     if ($element.is('[contenteditable]')) {
@@ -113,15 +113,15 @@ TemplateTwoWayBinding.rendered = function(templateInstance) {
     var boundId = ++boundCount;
     $element.attr('bound-id', boundId);
     var boundEventHandler = eventHandler;
-    var variableArray = $element.attr('value-bind').split('|');
+    var variableArray = $element.attr('value-bind').split('@');
     var variable = variableArray.shift();
-    _.each(variableArray, function(operatorItem) {
-      var operatorArray = operatorItem.split(':');
-      var operator = operatorArray.shift();
-      switch (operator) {
+    _.each(variableArray, function(decoratorItem) {
+      var decoratorArray = decoratorItem.split(':');
+      var decorator = decoratorArray.shift();
+      switch (decorator) {
         case 'throttle':
           var wait = 200, options = {};
-          _.each(operatorArray, function(paramItem) {
+          _.each(decoratorArray, function(paramItem) {
             var testWait = parseInt(paramItem, 10);
             if (!_.isNaN(testWait)) {
               wait = testWait;
@@ -137,7 +137,7 @@ TemplateTwoWayBinding.rendered = function(templateInstance) {
           break;
         case 'debounce':
           var wait = 200, immediate = false;
-          _.each(operatorArray, function(paramItem) {
+          _.each(decoratorArray, function(paramItem) {
             var testWait = parseInt(paramItem, 10);
             if (!_.isNaN(testWait)) {
               wait = testWait;
@@ -149,7 +149,7 @@ TemplateTwoWayBinding.rendered = function(templateInstance) {
           boundEventHandler = _.debounce(boundEventHandler, wait, immediate);
           break;
         // default:
-        //   TemplateTwoWayBinding.operator.call(t, variable, operator, operatorArray);
+        //   TemplateTwoWayBinding.decorator.call(t, variable, decorator, decoratorArray);
       }
     });
     var events;

@@ -176,12 +176,12 @@ By default, throttle will execute the function as soon as you call it for the fi
 
 Updating a property, at most, every 200ms
 ```HTML
-<input type="text" value-bind="variable|throttle">
+<input type="text" value-bind="variable@throttle">
 ```
 
 Updating a property, at most, every 850ms (and noLeading, and noTrailing)
 ```HTML
-<input type="text" value-bind="variable|throttle:850:noLeading:noTrailing">
+<input type="text" value-bind="variable@throttle:850:noLeading:noTrailing">
 ```
 
 ## Debounce
@@ -194,12 +194,12 @@ Pass param "immediate" to cause debounce to trigger the function on the leading 
 
 Update after typing stopped for 200ms
 ```HTML
-<input type="text" value-bind="variable|debounce">
+<input type="text" value-bind="variable@debounce">
 ```
 
 Update after typing stopped for 850ms (and immediate)
 ```HTML
-<input type="text" value-bind="variable|debounce:850:immediate">
+<input type="text" value-bind="variable@debounce:850:immediate">
 ```
 
 ## TODO
@@ -208,10 +208,10 @@ Update after typing stopped for 850ms (and immediate)
 - [x] [contenteditable]
 - [x] modelMap & validation examples: [one](https://github.com/comerc/meteor-template-controller-demo), [two](https://github.com/comerc/meteor-template2)
 - [x] remove dependencies of Template.body.events & aldeed:template-extension
-- [x] ~~custom operator~~
+- [x] ~~custom decorator~~
 - [x] throttle:500:notLeading:notTrailing
 - [x] debounce:500:immediate
-- [ ] custom binding events via "|on:change" ("change" as [example](https://github.com/ManuelDeLeon/phonebook/blob/master/client/body/main/contacts/editContact/editContact.js#L13) for `<select>`)
+- [ ] custom binding events ("change" as [example](https://github.com/ManuelDeLeon/phonebook/blob/master/client/body/main/contacts/editContact/editContact.js#L13) for `<select>`)
 - [ ] w/o jQuery
 - [ ] How to implement external wrapping of events (like throttle & debounce)? I want to give up the pseudo coding, may be.
 - [x] single ckeckbox as Boolean

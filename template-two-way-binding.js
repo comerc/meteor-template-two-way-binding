@@ -181,12 +181,14 @@ TemplateTwoWayBinding.rendered = function(templateInstance) {
         var type = $element.attr('type');
         if (type === 'checkbox') {
           if ($element.attr('value')) {
-            if (!_.isArray(value)) {
-              value = new Array(value);
-            }
-            var hasValue = value.indexOf($element.val()) > -1;
-            if (hasValue != $element.prop('checked')) {
-              $element.trigger('click');
+            if (value !== undefined) {
+              if (!_.isArray(value)) {
+                value = new Array(value);
+              }
+              var hasValue = value.indexOf($element.val()) > -1;
+              if (hasValue != $element.prop('checked')) {
+                $element.trigger('click');
+              }
             }
           } else {
             if (value != $element.prop('checked')) {
@@ -194,11 +196,13 @@ TemplateTwoWayBinding.rendered = function(templateInstance) {
             }
           }
         } else if (type === 'radio') {
-          if (!_.isArray(value)) {
-            value = new Array(value);
-          }
-          if (value.indexOf($element.val()) > -1) {
-            $element.trigger('click');
+          if (value !== undefined) {
+            if (!_.isArray(value)) {
+              value = new Array(value);
+            }
+            if (value.indexOf($element.val()) > -1) {
+              $element.trigger('click');
+            }
           }
         } else {
           // Format date object to match input[type='date'] format

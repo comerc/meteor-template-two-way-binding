@@ -199,9 +199,7 @@ Update after typing stopped for 850ms (and immediate)
 - [ ] custom binding events via "|on:change" ("change" as [example](https://github.com/ManuelDeLeon/phonebook/blob/master/client/body/main/contacts/editContact/editContact.js#L13) for `<select>`)
 - [ ] w/o jQuery
 - [ ] How to implement external wrapping of events (like throttle & debounce)? I want to give up the pseudo coding, may be.
-- [ ] _.isBoolean for single ckeckbox
-- [ ] undefined state for ckeckbox & radiogroup
-- [ ] only one click for set value to radiogroup
+- [*] single ckeckbox as Boolean
 
 ## License
 The code is licensed under the MIT License (see LICENSE file).

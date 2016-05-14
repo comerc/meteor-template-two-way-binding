@@ -152,8 +152,8 @@ TemplateTwoWayBinding.rendered = function(templateInstance) {
         //   TemplateTwoWayBinding.operator.call(t, variable, operator, operatorArray);
       }
     });
-    var type = $element.attr('type');
     var events;
+    var type = $element.attr('type');
     switch (type) {
       case 'checkbox':
         events = 'change';
@@ -166,7 +166,11 @@ TemplateTwoWayBinding.rendered = function(templateInstance) {
         events = 'input drag';
         break;
       default:
-        events = 'input';
+        if ($element.is('select')) {
+          events = 'change';
+        } else {
+          events = 'input';
+        }
     }
     $element.on(events + ' [bound-id=' + boundId + ']', boundEventHandler);
     t.autorun(function() {
@@ -181,7 +185,7 @@ TemplateTwoWayBinding.rendered = function(templateInstance) {
         var type = $element.attr('type');
         if (type === 'checkbox') {
           if ($element.attr('value')) {
-            if (value !== undefined) {
+            // if (value !== undefined) {
               if (!_.isArray(value)) {
                 value = new Array(value);
               }
@@ -189,7 +193,7 @@ TemplateTwoWayBinding.rendered = function(templateInstance) {
               if (hasValue != $element.prop('checked')) {
                 $element.trigger('click');
               }
-            }
+            // }
           } else {
             if (value != $element.prop('checked')) {
               $element.trigger('click');

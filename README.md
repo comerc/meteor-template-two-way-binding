@@ -153,6 +153,21 @@ The value stored in the Session variable is the HTML-value as String.
 
 XXX tested with [yabwe/medium-editor](https://github.com/yabwe/medium-editor)
 
+### Select
+
+```HTML
+<select value-bind="select-single">
+  <option value="AL">Alabama</option>
+  <option value="WY">Wyoming</option>
+</select>
+<select multiple="multiple" value-bind="select-multiple">
+  <option value="AL">Alabama</option>
+  <option value="WY">Wyoming</option>
+</select>
+```
+
+[Select2](https://select2.github.io/) tested too
+
 ## Throttle
 
 By default throttle will only allow updates every 200ms. You can customize the rate of course. Here are a few examples.
@@ -200,6 +215,7 @@ Update after typing stopped for 850ms (and immediate)
 - [ ] w/o jQuery
 - [ ] How to implement external wrapping of events (like throttle & debounce)? I want to give up the pseudo coding, may be.
 - [x] single ckeckbox as Boolean
+- [x] select-single & select-multiple & select2
 
 ## License
 The code is licensed under the MIT License (see LICENSE file).

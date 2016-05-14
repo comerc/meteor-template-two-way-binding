@@ -185,7 +185,7 @@ TemplateTwoWayBinding.rendered = function(templateInstance) {
         var type = $element.attr('type');
         if (type === 'checkbox') {
           if ($element.attr('value')) {
-            // if (value !== undefined) {
+            if (value !== undefined) {
               if (!_.isArray(value)) {
                 value = new Array(value);
               }
@@ -193,7 +193,7 @@ TemplateTwoWayBinding.rendered = function(templateInstance) {
               if (hasValue != $element.prop('checked')) {
                 $element.trigger('click');
               }
-            // }
+            }
           } else {
             if (value != $element.prop('checked')) {
               $element.trigger('click');

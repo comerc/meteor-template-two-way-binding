@@ -46,49 +46,53 @@ TemplateTwoWayBinding.rendered = function(templateInstance) {
       value = $element.html();
     } else {
       value = $element.val();
-      var type = $element.prop('type');
+      var type = $element.attr('type');
       // Update the Session variable depending on the type of input element
       switch (type) {
         case 'checkbox':
-          var checked = $element.is(':checked');
-          var prevValue = TemplateTwoWayBinding.getter.call(t, variable);
-          if (prevValue) {
-            // Create an array to generalize processing
-            if(!_.isArray(prevValue)) {
-                prevValue = [prevValue];
-            }
-            if (checked) {
-              // Add the newly checked element to the array
-              if (!_.contains(prevValue, value)) {
-                prevValue.push(value);
+          if ($element.attr('value')) {
+            var checked = $element.prop('checked');
+            var prevValue = TemplateTwoWayBinding.getter.call(t, variable);
+            if (prevValue) {
+              // Create an array to generalize processing
+              if(!_.isArray(prevValue)) {
+                  prevValue = [prevValue];
+              }
+              if (checked) {
+                // Add the newly checked element to the array
+                if (prevValue.indexOf(value) === -1) {
+                  prevValue.push(value);
+                } else {
+                  return;
+                }
               } else {
-                return;
+                // Remove the unchecked element from the array
+                var index = prevValue.indexOf(value);
+                if(index > -1) {
+                  prevValue.splice(index, 1);
+                }
               }
-            } else {
-              // Remove the unchecked element from the array
-              var index = prevValue.indexOf(value);
-              if(index > -1) {
-                prevValue.splice(index, 1);
-              }
+              value = prevValue;
+            } else if (!checked) {
+              value = undefined;
             }
-            value = prevValue;
-          } else if (!checked) {
-            value = undefined;
-          }
-          // Format array
-          if(_.size(value) === 0) {
-            value = undefined;
-          }
-          if(_.size(value) === 1) {
-            value = value[0];
+            // Format array
+            if(_.size(value) === 0) {
+              value = undefined;
+            }
+            if(_.size(value) === 1) {
+              value = value[0];
+            }
+          } else {
+            value = $element.prop('checked');
           }
           break;
         case 'radio':
-          value = $element.is(':checked') ? value : undefined;
+          value = $element.prop('checked') ? value : undefined;
           break;
         case 'range': // Fall through
         case 'number':
-          var intValue = parseInt(value);
+          var intValue = parseInt(value, 10);
           value = isNaN(intValue) ? undefined : intValue;
           break;
         case 'date': // Fall through
@@ -148,10 +152,12 @@ TemplateTwoWayBinding.rendered = function(templateInstance) {
         //   TemplateTwoWayBinding.operator.call(t, variable, operator, operatorArray);
       }
     });
-    var type = $element.prop('type');
+    var type = $element.attr('type');
     var events;
     switch (type) {
       case 'checkbox':
+        events = 'change';
+        break;
       case 'radio':
         events = 'change';
         break;
@@ -172,13 +178,26 @@ TemplateTwoWayBinding.rendered = function(templateInstance) {
       if ($element.is('[contenteditable]')) {
         $element.html(value);
       } else {
-        var type = $element.prop('type');
-        if (type === 'checkbox' || type === 'radio') {
+        var type = $element.attr('type');
+        if (type === 'checkbox') {
+          if ($element.attr('value')) {
+            if (!_.isArray(value)) {
+              value = new Array(value);
+            }
+            var hasValue = value.indexOf($element.val()) > -1;
+            if (hasValue != $element.prop('checked')) {
+              $element.trigger('click');
+            }
+          } else {
+            if (value != $element.prop('checked')) {
+              $element.trigger('click');
+            }
+          }
+        } else if (type === 'radio') {
           if (!_.isArray(value)) {
             value = new Array(value);
           }
-          var isValue = value.indexOf($element.val()) > -1;
-          if (isValue != $element.prop('checked')) {
+          if (value.indexOf($element.val()) > -1) {
             $element.trigger('click');
           }
         } else {

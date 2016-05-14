@@ -114,33 +114,42 @@ The value stored in the Session variable is the input value as String.
 
 The value stored in the Session variable is a Date object.
 
-### Checkbox(es)
+### Checkbox
 ```HTML
-<input type="checkbox" name="vehicle" value="Bike" value-bind="exampleVariable8"/> Bike
-<input type="checkbox" name="vehicle" value="Car" value-bind="exampleVariable8"/> Car
-<input type="checkbox" name="vehicle" value="Plane" value-bind="exampleVariable8"/> Plane
+<input type="checkbox" value-bind="exampleVariable8"/> Bike
+```
+
+The value stored in the Session variable is Boolean.
+
+### Checkboxes
+```HTML
+<input type="checkbox" name="vehicle" value="Bike" value-bind="exampleVariable9"/> Bike
+<input type="checkbox" name="vehicle" value="Car" value-bind="exampleVariable9"/> Car
+<input type="checkbox" name="vehicle" value="Plane" value-bind="exampleVariable9"/> Plane
 ```
 
 The value stored in the Session variable is the input value as String. When more than one checkbox is checked, it becomes an array of Strings.
 
 ### Range
 ```HTML
-<input type="range" value-bind="exampleVariable9"/>
+<input type="range" value-bind="exampleVariable10"/>
 ```
 
 The value stored in the Session variable is the text as Number.
 
 ### Color picker
 ```HTML
-<input type="color" value-bind="exampleVariable10"/>
+<input type="color" value-bind="exampleVariable11"/>
 ```
 
 The value stored in the Session variable is the color as hex triplet String (e.g. "#FFFFFF").
 
 ### [contenteditable]
 ```HTML
-<div contenteditable="true" value-bind="exampleVariable11"></div>
+<div contenteditable="true" value-bind="exampleVariable12"></div>
 ```
+
+The value stored in the Session variable is the HTML-value as String.
 
 XXX tested with [yabwe/medium-editor](https://github.com/yabwe/medium-editor)
 

@@ -121,7 +121,7 @@ The value stored in the Session variable is a Date object.
 
 The value stored in the Session variable as Boolean.
 
-### Checkboxes
+### Checkbox(es)
 ```HTML
 <input type="checkbox" name="vehicle" value="Bike" value-bind="exampleVariable9"/> Bike
 <input type="checkbox" name="vehicle" value="Car" value-bind="exampleVariable9"/> Car

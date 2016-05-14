@@ -218,4 +218,5 @@ Update after typing stopped for 850ms (and immediate)
 - [x] select-single & select-multiple & select2
 
 ## License
-The code is licensed under the MIT License (see LICENSE file).
+
+MIT

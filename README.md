@@ -24,7 +24,7 @@ Add value-bind="foo" to an input element to bind it to a Session variable named 
 
 ## Demo
 
-[Demo here!](https://github.com/comerc/meteor-template2)
+[Demo here!](https://github.com/comerc/meteor-template2#how-to-run-demo)
 
 ## Example
 
@@ -193,12 +193,15 @@ Update after typing stopped for 850ms (and immediate)
 - [x] [contenteditable]
 - [x] modelMap & validation examples: [one](https://github.com/comerc/meteor-template-controller-demo), [two](https://github.com/comerc/meteor-template2)
 - [x] remove dependencies of Template.body.events & aldeed:template-extension
-- [x] custom operator - removed
+- [x] ~~custom operator~~
 - [x] throttle:500:notLeading:notTrailing
 - [x] debounce:500:immediate
 - [ ] custom binding events via "|on:change" ("change" as [example](https://github.com/ManuelDeLeon/phonebook/blob/master/client/body/main/contacts/editContact/editContact.js#L13) for `<select>`)
 - [ ] w/o jQuery
 - [ ] How to implement external wrapping of events (like throttle & debounce)? I want to give up the pseudo coding, may be.
+- [ ] _.isBoolean for single ckeckbox
+- [ ] undefined state for ckeckbox & radiogroup
+- [ ] only one click for set value to radiogroup
 
 ## License
 The code is licensed under the MIT License (see LICENSE file).

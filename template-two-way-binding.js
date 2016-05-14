@@ -200,7 +200,7 @@ TemplateTwoWayBinding.rendered = function(templateInstance) {
             if (!_.isArray(value)) {
               value = new Array(value);
             }
-            if (value.indexOf($element.val()) > -1) {
+            if (value.indexOf($element.val()) > -1) { // coffee: if ~value.indexOf $element.val()
               $element.trigger('click');
             }
           }

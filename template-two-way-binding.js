@@ -29,6 +29,39 @@ Date.prototype.toDateInputValue = (function() {
   return local.toJSON().slice(0, 10);
 });
 
+var getEventNames = function($element) {
+  var result;
+  var type = $element.attr('type');
+  switch (type) {
+    case 'checkbox':
+      result = 'change';
+      break;
+    case 'radio':
+      result = 'change';
+      break;
+    case 'range':
+      // Drag event for input[type='range'] IE support
+      result = 'input drag';
+      break;
+    default:
+      if ($element.is('select')) {
+        result = 'change';
+      } else {
+        result = 'input';
+      }
+  }
+  return result;
+}
+
+var trigger = function($element) {
+  $element.attr('is-trigger', true);
+  var element = $element.get(0);
+  var eventNames = getEventNames($element);
+  var event = new Event(eventNames.split(' ')[0]);
+  // XXX workaround: jQuery trigger() w/o fire of addEventListener()
+  element.dispatchEvent(event);
+};
+
 var boundCount = 0;
 
 TemplateTwoWayBinding.rendered = function(templateInstance) {
@@ -39,6 +72,10 @@ TemplateTwoWayBinding.rendered = function(templateInstance) {
   var t = templateInstance;
   var eventHandler = function() {
     var $element = $(this);
+    if ($element.attr('is-trigger')) {
+      $element.removeAttr('is-trigger');
+      return;
+    }
     var variableArray = $element.attr('value-bind').split('@');
     var variable = variableArray[0];
     var value;
@@ -105,9 +142,9 @@ TemplateTwoWayBinding.rendered = function(templateInstance) {
     TemplateTwoWayBinding.setter.call(t, variable, value, $element);
   };
   // Loop through all variables we want to bind
-  var elements = t.$('[value-bind]:not([bound-id])');
+  var $elements = t.$('[value-bind]:not([bound-id])');
   // If our bound Session variable changes, update the corresponding element in the DOM
-  elements.each(function() {
+  $elements.each(function() {
     var $element = $(this);
     // Set one time bound-id
     var boundId = ++boundCount;
@@ -152,35 +189,18 @@ TemplateTwoWayBinding.rendered = function(templateInstance) {
         //   TemplateTwoWayBinding.decorator.call(t, variable, decorator, decoratorArray);
       }
     });
-    var events;
-    var type = $element.attr('type');
-    switch (type) {
-      case 'checkbox':
-        events = 'change';
-        break;
-      case 'radio':
-        events = 'change';
-        break;
-      case 'range':
-        // Drag event for input[type='range'] IE support
-        events = 'input drag';
-        break;
-      default:
-        if ($element.is('select')) {
-          events = 'change';
-        } else {
-          events = 'input';
-        }
-    }
-    $element.on(events + ' [bound-id=' + boundId + ']', boundEventHandler);
+    var eventNames = getEventNames($element);
+    // $element.get(0).addEventListener(eventName, boundEventHandler);
+    $element.on(eventNames, boundEventHandler);
     t.autorun(function() {
-      var value = TemplateTwoWayBinding.getter.call(t, variable, $element);
+      var value = TemplateTwoWayBinding.getter.call(t, variable);
       if ($element.attr('is-setter')) {
         $element.removeAttr('is-setter');
         return;
       }
       if ($element.is('[contenteditable]')) {
         $element.html(value);
+        trigger($element);
       } else {
         var type = $element.attr('type');
         if (type === 'checkbox') {
@@ -191,21 +211,21 @@ TemplateTwoWayBinding.rendered = function(templateInstance) {
               }
               var hasValue = value.indexOf($element.val()) > -1;
               if (hasValue != $element.prop('checked')) {
-                $element.trigger('click');
+                $element.prop('checked', hasValue);
+                trigger($element);
               }
             }
           } else {
             if (value != $element.prop('checked')) {
-              $element.trigger('click');
+              $element.prop('checked', value);
+              trigger($element);
             }
           }
         } else if (type === 'radio') {
           if (value !== undefined) {
-            if (!_.isArray(value)) {
-              value = new Array(value);
-            }
-            if (value.indexOf($element.val()) > -1) { // coffee: if ~value.indexOf $element.val()
-              $element.trigger('click');
+            if ($element.val() === value) {
+              $element.prop('checked', true);
+              trigger($element);
             }
           }
         } else {
@@ -215,6 +235,7 @@ TemplateTwoWayBinding.rendered = function(templateInstance) {
           }
           // In this case we copy the Session variable to the value property
           $element.val(value);
+          trigger($element);
         }
       }
     });

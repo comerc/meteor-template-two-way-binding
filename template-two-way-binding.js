@@ -193,7 +193,7 @@ TemplateTwoWayBinding.rendered = function(templateInstance) {
     // $element.get(0).addEventListener(eventName, boundEventHandler);
     $element.on(eventNames, boundEventHandler);
     t.autorun(function() {
-      var value = TemplateTwoWayBinding.getter.call(t, variable);
+      var value = TemplateTwoWayBinding.getter.call(t, variable, $element);
       if ($element.attr('is-setter')) {
         $element.removeAttr('is-setter');
         return;

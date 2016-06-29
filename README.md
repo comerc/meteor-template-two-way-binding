@@ -216,6 +216,7 @@ Update after typing stopped for 850ms (and immediate)
 - [ ] How to implement external wrapping of events (like throttle & debounce)? I want to give up the pseudo coding, may be.
 - [x] single ckeckbox as Boolean
 - [x] select-single & select-multiple & select2
+- [ ] check https://github.com/remy/bind.js
 
 ## License
 

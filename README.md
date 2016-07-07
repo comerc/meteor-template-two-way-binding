@@ -217,6 +217,7 @@ Update after typing stopped for 850ms (and immediate)
 - [x] single ckeckbox as Boolean
 - [x] select-single & select-multiple & select2
 - [ ] check https://github.com/remy/bind.js
+- [ ] value-bind is evil, change to simple id
 
 ## License
 
